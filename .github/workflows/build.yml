@@ -37,9 +37,8 @@ jobs:
         run: npm install
 
       - name: Upload executables to asset
-        working-directory: ./one-click-os/crates/audio-manager-node
-        id: upload-release-asset
         uses: softprops/action-gh-release@v1
+        id: upload-release-asset
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
@@ -47,4 +46,4 @@ jobs:
           prerelease: ${{ github.ref != 'refs/heads/main' }}
           tag_name: ${{ github.ref == 'refs/heads/main' && 'latest' || github.ref }}
           files: |
-             ./*.node
+             ./one-click-os/crates/audio-manager-node/*.node
