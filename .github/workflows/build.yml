@@ -34,16 +34,18 @@ jobs:
 
       # move to the directory where the package.json is located
       - name: Move to package.json directory
-        run: cd ./one-click-os/crates/audio-manager-node
 
       - name: read package.json version
+        working-directory: ./one-click-os/crates/audio-manager-node
         uses: Saionaro/extract-package-version@v1.2.1
         id: package-json
 
       - name: Install npm dependencies
+        working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
 
       - name: Upload executables to asset
+        working-directory: ./one-click-os/crates/audio-manager-node
         id: upload-release-asset
         uses: softprops/action-gh-release@v1
         env:
