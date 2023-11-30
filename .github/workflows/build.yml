@@ -15,6 +15,9 @@ jobs:
         uses: MOZGIII/install-ldid-action@v1
         with:
           tag: v2.1.5-procursus2
+      - name: Install dependencies
+        run: |
+          sudo apt-get install libasound2-dev pulseaudio
 
       - uses: actions-rs/toolchain@v1
         with:
