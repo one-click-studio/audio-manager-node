@@ -32,9 +32,6 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           path: 'one-click-os'
 
-      # move to the directory where the package.json is located
-      - name: Move to package.json directory
-
       - name: read package.json version
         working-directory: ./one-click-os/crates/audio-manager-node
         uses: Saionaro/extract-package-version@v1.2.1
