@@ -30,10 +30,11 @@ jobs:
           repository: 'one-click-studio/one-click-os'
           ref: '9-proper-v1'
           token: ${{ secrets.GH_TOKEN }}
+          path: 'one-click-os'
 
       # move to the directory where the package.json is located
       - name: Move to package.json directory
-        run: cd crates/audio-manager-node
+        run: cd ./one-click-os/crates/audio-manager-node
 
       - name: read package.json version
         uses: Saionaro/extract-package-version@v1.2.1
