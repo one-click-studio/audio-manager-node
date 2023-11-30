@@ -9,9 +9,6 @@ jobs:
   build_linux:
     name: Build Linux Binaries
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:18.04
-
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
