@@ -32,11 +32,6 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           path: 'one-click-os'
 
-      - name: read package.json version
-        working-directory: ./one-click-os/crates/audio-manager-node
-        uses: Saionaro/extract-package-version@v1.2.1
-        id: package-json
-
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
@@ -50,6 +45,6 @@ jobs:
         with:
           draft: ${{ github.ref == 'refs/heads/main' }}
           prerelease: ${{ github.ref != 'refs/heads/main' }}
-          tag_name: ${{ steps.package-json.outputs.version }}
+          tag_name: ${{ github.ref == 'refs/heads/main' && 'latest' || github.ref }}
           files: |
              ./*.node
