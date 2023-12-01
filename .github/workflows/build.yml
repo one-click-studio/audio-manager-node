@@ -92,17 +92,13 @@ jobs:
           mkdir asiosdk
           tar -xf asiosdk.zip -C asiosdk
           $Env:CPAL_ASIO_DIR = "$(pwd)/asiosdk"
-      - name: Install ASIO4ALL
-        run: choco install asio4all
-      - name: Install llvm and clang
-        run: choco install llvm
-      # - name: Install LLVM and Clang
-      #   uses: KyleMayes/install-llvm-action@v1
-      #   with:
-      #     version: "10.0"
-      # - name: Set LLVM bin directory
-      #   run: |
-      #     echo "LIBCLANG_PATH=${{ env.LLVM_PATH }}\bin" >> $GITHUB_ENV
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "7.0.0"
+      - name: Set LLVM bin directory
+        run: |
+          echo "LIBCLANG_PATH=${{ env.LLVM_PATH }}\bin" >> $GITHUB_ENV
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
