@@ -99,6 +99,9 @@ jobs:
       - name: Set LLVM bin directory
         run: |
           echo "LIBCLANG_PATH=${{ env.LLVM_PATH }}\bin" >> $GITHUB_ENV
+      - name: Install MSVC
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
