@@ -1,10 +1,8 @@
 {
   "name": "audio-manager-node",
   "version": "1.0.0",
-  "main": "./build/index.node",
-  "scripts": {
-    "postinstall": "node postinstall.mjs"
-  },
+  "main": "./index.js",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/one-click-studio/audio-manager-node.git"
