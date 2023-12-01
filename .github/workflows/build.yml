@@ -38,7 +38,7 @@ jobs:
   #     - name: Upload linux artifact
   #       uses: actions/upload-artifact@v3
   #       with:
-  #         name: index.linux.node
+  #         name: index-linux.node
   #         path: ./one-click-os/crates/audio-manager-node/index.node
 
   # build_macos:
@@ -65,7 +65,7 @@ jobs:
   #     - name: Upload macos artifact
   #       uses: actions/upload-artifact@v3
   #       with:
-  #         name: index.macos.node
+  #         name: index-macos.node
   #         path: ./one-click-os/crates/audio-manager-node/index.node
 
   build_windows:
@@ -101,7 +101,7 @@ jobs:
           echo "LIBCLANG_PATH=${{ env.LLVM_PATH }}\bin" >> $GITHUB_ENV
       - name: Install MSVC
         run: |
-          vswhere -products \* -latest -property installationPath)\\VC\\Auxiliary\\Build\\vcvarsall.bat x64
+          $(vswhere -products \* -latest -property installationPath)\\VC\\Auxiliary\\Build\\vcvarsall.bat x64
       - name: Install MSVC
         run: |
           echo "VCVARSALL=$(vswhere -products \* -latest -property installationPath)\\VC\\Auxiliary\\Build\\vcvarsall.bat x64" >> $GITHUB_ENV
@@ -116,7 +116,7 @@ jobs:
       - name: Upload windows artifact
         uses: actions/upload-artifact@v3
         with:
-          name: index.windows.node
+          name: index-win.node
           path: ./one-click-os/crates/audio-manager-node/index.node
 
   # release:
