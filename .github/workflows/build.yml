@@ -104,17 +104,17 @@ jobs:
           echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> $GITHUB_ENV
           echo "debug 2"
 
-          $env:LIBCLANG_PATH = "C:\\Program Files\\LLVM\\bin"
+          $env:CPAL_ASIO_DIR = Join-Path $PWD -ChildPath "asiosdk"
           $env:LIBCLANG_PATH = "C:\\Program Files\\LLVM\\bin"
 
           echo "debug 3"
 
-          echo $env:LIBCLANG_PATH
           echo $env:CPAL_ASIO_DIR
+          echo $env:LIBCLANG_PATH
 
           echo "debug 4"
 
-          & 'C:\Program Files (x86)\Mic@rosoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat' x64
+          & 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat' x64
 
           echo "debug 5"
 
