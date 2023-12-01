@@ -101,7 +101,15 @@ jobs:
           echo "LIBCLANG_PATH=${{ env.LLVM_PATH }}\bin" >> $GITHUB_ENV
       - name: Install MSVC
         run: |
+          vswhere -products \* -latest -property installationPath)\\VC\\Auxiliary\\Build\\vcvarsall.bat x64
+      - name: Install MSVC
+        run: |
           echo "VCVARSALL=$(vswhere -products \* -latest -property installationPath)\\VC\\Auxiliary\\Build\\vcvarsall.bat x64" >> $GITHUB_ENV
+      - name: Test ENV VARS
+        run: |
+          echo $CPAL_ASIO_DIR
+          echo $LIBCLANG_PATH
+
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
