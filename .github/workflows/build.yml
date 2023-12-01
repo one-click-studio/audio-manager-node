@@ -3,7 +3,7 @@ name: build-release
 on:
   push:
     branches:
-      - main
+      - main-release
 
 jobs:
   build_linux:
@@ -65,7 +65,7 @@ jobs:
       - name: Upload macos artifact
         uses: actions/upload-artifact@v3
         with:
-          name: index-macos.node
+          name: index-macos-x64.node
           path: ./one-click-os/crates/audio-manager-node/index.node
 
 
