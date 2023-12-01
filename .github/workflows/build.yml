@@ -91,14 +91,18 @@ jobs:
           curl -L https://download.steinberg.net/sdk_downloads/asiosdk_2.3.3_2019-06-14.zip -o asiosdk.zip
           mkdir asiosdk
           tar -xf asiosdk.zip -C asiosdk
-          echo "CPAL_ASIO_DIR=$(pwd)/asiosdk" >> $GITHUB_ENV
-      - name: Install LLVM and Clang
-        uses: KyleMayes/install-llvm-action@v1
-        with:
-          version: "10.0"
-      - name: Set LLVM bin directory
-        run: |
-          echo "LIBCLANG_PATH=${{ env.LLVM_PATH }}\bin" >> $GITHUB_ENV
+          $Env:CPAL_ASIO_DIR = "$(pwd)/asiosdk"
+      - name: Install ASIO4ALL
+        run: choco install asio4all
+      - name: Install llvm and clang
+        run: choco install llvm
+      # - name: Install LLVM and Clang
+      #   uses: KyleMayes/install-llvm-action@v1
+      #   with:
+      #     version: "10.0"
+      # - name: Set LLVM bin directory
+      #   run: |
+      #     echo "LIBCLANG_PATH=${{ env.LLVM_PATH }}\bin" >> $GITHUB_ENV
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
