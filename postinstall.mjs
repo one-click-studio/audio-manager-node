@@ -1,6 +1,10 @@
 import { renameSync } from 'fs';
 import { platform as _platform } from 'os';
 
+// get current pwd
+const pwd = process.chdir(__dirname);
+console.log(`Current working directory: ${pwd}`);
+
 const platform = _platform();
 const binaries = {
     "linux": "index-linux.node",
