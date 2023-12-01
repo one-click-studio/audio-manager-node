@@ -96,26 +96,18 @@ jobs:
           mkdir asiosdk
           tar -xf asiosdk.zip -C asiosdk
       - name: add ASIO SDK to ENV VARS
+        working-directory: ./one-click-os/crates/audio-manager-node
         shell: powershell
         run: |
+          echo "test"
           echo "CPAL_ASIO_DIR=$(pwd)/asiosdk" >> $GITHUB_ENV
-      - name: Set LLVM bin directory
-        shell: powershell
-        run: |
           echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> $GITHUB_ENV
-      - name: Test ENV VARS
-        shell: powershell
-        run: |
           echo $env:LIBCLANG_PATH
           echo $env:CPAL_ASIO_DIR
-      - name: start vsvarsall.bat
-        shell: powershell
-        run: |
-          & 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat' x64
-
-      - name: Install npm dependencies
-        working-directory: ./one-click-os/crates/audio-manager-node
-        run: npm install
+          echo $env:PATH
+          echo ${{ env.CPAL_ASIO_DIR }}
+          & 'C:\Program Files (x86)\Mic@rosoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat' x64
+          npm install
       - name: Upload windows artifact
         uses: actions/upload-artifact@v3
         with:
