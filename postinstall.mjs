@@ -1,5 +1,6 @@
-import { renameSync } from 'fs';
 import { platform as _platform } from 'os';
+import fs from 'node:fs'
+import path from 'node:path'
 
 // get current pwd
 import { fileURLToPath } from 'node:url'
@@ -19,12 +20,12 @@ const binaries = {
 
 const binaryName = binaries[platform];
 if (binaryName && typeof binaryName === 'string') {
-    renameSync(`./build/${binaryName}`, `./build/index.node`);
+    fs.renameSync(`./build/${binaryName}`, `./build/index.node`);
 } else if (binaryName && typeof binaryName === 'object') {
     const arch = process.arch;
     const binaryNameArch = binaryName[arch];
     if (binaryNameArch) {
-        renameSync(`./build/${binaryNameArch}`, `./build/index.node`);
+        fs.renameSync(`./build/${binaryNameArch}`, `./build/index.node`);
     } else {
         console.error(`Unsupported architecture: ${arch}`);
         process.exit(1);
