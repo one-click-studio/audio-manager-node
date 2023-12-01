@@ -6,71 +6,44 @@ on:
       - main
 
 jobs:
-  # build_linux:
-  #   name: Build Linux Binaries
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v2
-  #     - name: Install ldid
-  #       uses: MOZGIII/install-ldid-action@v1
-  #       with:
-  #         tag: v2.1.5-procursus2
-  #     - name: Install dependencies
-  #       run: |
-  #         sudo apt-get install libasound2-dev pulseaudio
-  #     - uses: actions-rs/toolchain@v1
-  #       with:
-  #         toolchain: stable
-  #     - name: Use Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         repository: 'one-click-studio/one-click-os'
-  #         ref: '9-proper-v1'
-  #         token: ${{ secrets.GH_TOKEN }}
-  #         path: 'one-click-os'
-  #     - name: Install npm dependencies
-  #       working-directory: ./one-click-os/crates/audio-manager-node
-  #       run: npm install
-  #     - name: Upload linux artifact
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: index-linux.node
-  #         path: ./one-click-os/crates/audio-manager-node/index.node
+  build_linux:
+    name: Build Linux Binaries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Install ldid
+        uses: MOZGIII/install-ldid-action@v1
+        with:
+          tag: v2.1.5-procursus2
+      - name: Install dependencies
+        run: |
+          sudo apt-get install libasound2-dev pulseaudio
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - uses: actions/checkout@v4
+        with:
+          repository: 'one-click-studio/one-click-os'
+          ref: '9-proper-v1'
+          token: ${{ secrets.GH_TOKEN }}
+          path: 'one-click-os'
+      - name: Install npm dependencies
+        working-directory: ./one-click-os/crates/audio-manager-node
+        run: npm install
+      - name: Upload linux artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: index-linux.node
+          path: ./one-click-os/crates/audio-manager-node/index.node
 
-  # build_macos:
-  #   name: Build MacOS Binaries
-  #   runs-on: macos-latest
-
-  #   steps:
-  #     - uses: actions-rs/toolchain@v1
-  #       with:
-  #         toolchain: stable
-  #     - name: Use Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         repository: 'one-click-studio/one-click-os'
-  #         ref: '9-proper-v1'
-  #         token: ${{ secrets.GH_TOKEN }}
-  #         path: 'one-click-os'
-  #     - name: Install npm dependencies
-  #       working-directory: ./one-click-os/crates/audio-manager-node
-  #       run: npm install
-  #     - name: Upload macos artifact
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: index-macos.node
-  #         path: ./one-click-os/crates/audio-manager-node/index.node
-
-  build_windows:
-    name: Build Windows Binaries
-    runs-on: windows-latest
+  build_macos:
+    name: Build MacOS Binaries
+    runs-on: macos-latest
 
     steps:
       - uses: actions-rs/toolchain@v1
@@ -86,62 +59,33 @@ jobs:
           ref: '9-proper-v1'
           token: ${{ secrets.GH_TOKEN }}
           path: 'one-click-os'
-      - name: Install LLVM and Clang
-        uses: KyleMayes/install-llvm-action@v1
-        with:
-          version: "7.0.0"
-      - name: Install ASIO SDK
-        run: |
-          curl -L https://download.steinberg.net/sdk_downloads/asiosdk_2.3.3_2019-06-14.zip -o asiosdk.zip
-          mkdir asiosdk
-          tar -xf asiosdk.zip -C asiosdk
-      - name: add ASIO SDK to ENV VARS
+      - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
-        shell: powershell
-        run: |
-          echo "debug 1"
-          echo "CPAL_ASIO_DIR=$(pwd)/asiosdk" >> $GITHUB_ENV
-          echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> $GITHUB_ENV
-          echo "debug 2"
-
-          $env:CPAL_ASIO_DIR = Join-Path $PWD -ChildPath "asiosdk"
-          $env:LIBCLANG_PATH = "C:\\Program Files\\LLVM\\bin"
-
-          echo "debug 3"
-
-          echo $env:CPAL_ASIO_DIR
-          echo $env:LIBCLANG_PATH
-
-          echo "debug 4"
-
-          & 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat' x64
-
-          echo "debug 5"
-
-          npm install
-      - name: Upload windows artifact
+        run: npm install
+      - name: Upload macos artifact
         uses: actions/upload-artifact@v3
         with:
-          name: index-win.node
+          name: index-macos.node
           path: ./one-click-os/crates/audio-manager-node/index.node
 
-  # release:
-    # name: Create Release
-    # needs: [build_linux, build_macos, build_windows]
-    # runs-on: ubuntu-latest
 
-    # steps:
-    #   - name: Download artifacts
-    #     uses: actions/download-artifact@v3
-    #     with:
-    #       path: ./artifacts
+  release:
+    name: Create Release
+    needs: [build_linux, build_macos]
+    runs-on: ubuntu-latest
 
-    #   - name: Upload executables to asset
-    #     id: upload-release-asset
-    #     uses: softprops/action-gh-release@v1
-    #     env:
-    #       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    #     with:
-    #       draft: true
-    #       tag_name: latest
-    #       files: ./artifacts/*
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: ./artifacts
+
+      - name: Upload executables to asset
+        id: upload-release-asset
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          draft: true
+          tag_name: latest
+          files: ./artifacts/*
