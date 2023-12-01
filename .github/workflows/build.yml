@@ -91,13 +91,14 @@ jobs:
         with:
           version: "7.0.0"
       - name: Install ASIO SDK
+        run: |
+          curl -L https://download.steinberg.net/sdk_downloads/asiosdk_2.3.3_2019-06-14.zip -o asiosdk.zip
+          mkdir asiosdk
+          tar -xf asiosdk.zip -C asiosdk
+      - name: add ASIO SDK to ENV VARS
         shell: powershell
         run: |
-          $url = 'https://www.steinberg.net/sdk_downloads/asiosdk2.3.zip'
-          $out = 'C:\asio.zip'
-          Invoke-WebRequest -Uri $url -OutFile $out
-          Expand-Archive -Path $out -DestinationPath C:\ASIO
-          echo "CPAL_ASIO_DIR=C:\\ASIO" >> $GITHUB_ENV
+          echo "CPAL_ASIO_DIR=$(pwd)/asiosdk" >> $GITHUB_ENV
       - name: Set LLVM bin directory
         shell: powershell
         run: |
