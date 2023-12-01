@@ -99,14 +99,25 @@ jobs:
         working-directory: ./one-click-os/crates/audio-manager-node
         shell: powershell
         run: |
-          echo "test"
+          echo "debug 1"
           echo "CPAL_ASIO_DIR=$(pwd)/asiosdk" >> $GITHUB_ENV
           echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> $GITHUB_ENV
+          echo "debug 2"
+
+          $env:LIBCLANG_PATH = "C:\\Program Files\\LLVM\\bin"
+          $env:LIBCLANG_PATH = "C:\\Program Files\\LLVM\\bin"
+
+          echo "debug 3"
+
           echo $env:LIBCLANG_PATH
           echo $env:CPAL_ASIO_DIR
-          echo $env:PATH
-          echo ${{ env.CPAL_ASIO_DIR }}
+
+          echo "debug 4"
+
           & 'C:\Program Files (x86)\Mic@rosoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat' x64
+
+          echo "debug 5"
+
           npm install
       - name: Upload windows artifact
         uses: actions/upload-artifact@v3
