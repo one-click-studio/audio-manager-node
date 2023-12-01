@@ -111,7 +111,7 @@ jobs:
       - name: start vsvarsall.bat
         shell: powershell
         run: |
-          C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat x64
+          & 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat' x64
 
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
