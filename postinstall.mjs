@@ -20,12 +20,16 @@ const binaries = {
 
 const binaryName = binaries[platform];
 if (binaryName && typeof binaryName === 'string') {
-    fs.renameSync(`./build/${binaryName}`, `./build/index.node`);
+    let source = path.join(__dirname, `./build/${binaryName}`);
+    let dest = path.join(__dirname, `./build/index.node`);
+    fs.renameSync(source, dest);
 } else if (binaryName && typeof binaryName === 'object') {
     const arch = process.arch;
     const binaryNameArch = binaryName[arch];
     if (binaryNameArch) {
-        fs.renameSync(`./build/${binaryNameArch}`, `./build/index.node`);
+        let source = path.join(__dirname, `./build/${binaryNameArch}`);
+        let dest = path.join(__dirname, `./build/index.node`);        
+        fs.renameSync(source, dest);
     } else {
         console.error(`Unsupported architecture: ${arch}`);
         process.exit(1);
