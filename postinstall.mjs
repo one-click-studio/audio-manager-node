@@ -2,8 +2,10 @@ import { renameSync } from 'fs';
 import { platform as _platform } from 'os';
 
 // get current pwd
-const pwd = process.chdir(__dirname);
-console.log(`Current working directory: ${pwd}`);
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+console.log(`Current working directory: ${__dirname}`);
 
 const platform = _platform();
 const binaries = {
