@@ -2,6 +2,7 @@
   "name": "audio-manager-node",
   "version": "1.0.0",
   "main": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {},
   "repository": {
     "type": "git",
@@ -9,5 +10,8 @@
   },
   "author": "one-click-studio",
   "license": "ISC",
-  "homepage": "https://github.com/one-click-studio/audio-manager-node#readme"
+  "homepage": "https://github.com/one-click-studio/audio-manager-node#readme",
+  "dependencies": {
+    "typescript": "^5.3.2"
+  }
 }

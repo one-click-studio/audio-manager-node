@@ -30,6 +30,11 @@ This module provides an interface to manage audio devices and processes. It allo
 - **Returns:** undefined.
 
 
+### Installation
+```javascript
+npm i one-click-studio/audio-manager-node
+```
+
 ### Usage
 Here's an example of how to use the module:
 
@@ -37,14 +42,12 @@ Here's an example of how to use the module:
 const audioModule = require('audio-manager-node');
 
 // List all devices
-audioModule.getAllDevices().then(devices => {
-    console.log(devices);
-});
+const devices = audioModule.getAllDevices();
+console.log(devices);
 
 // Get details about a specific device
-audioModule.getDevice('Device Name').then(deviceInfo => {
-    console.log(deviceInfo);
-});
+const deviceInfo = audioModule.getDevice('Device Name');
+console.log(deviceInfo);
 
 // Start processing
 const sharedState = audioModule.start('Device Name', 'path/to/record', (err, data) => {
