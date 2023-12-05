@@ -3,7 +3,7 @@ name: build-release
 on:
   push:
     branches:
-      - main
+      - main-release
 
 jobs:
   build_linux:
@@ -79,6 +79,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: ./artifacts
+
+      - name: LS artifacts
+        run: ls ./artifacts
 
       - name: Upload executables to asset
         id: upload-release-asset
