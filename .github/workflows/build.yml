@@ -91,4 +91,4 @@ jobs:
         with:
           draft: true
           tag_name: latest
-          files: ./artifacts/*
+          files: ./artifacts/*.node
