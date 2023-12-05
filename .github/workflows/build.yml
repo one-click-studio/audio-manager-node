@@ -80,6 +80,12 @@ jobs:
         with:
           path: ./artifacts
 
+      - name: LS artifacts
+        run: ls -lah ./artifacts
+
+      - name: LS artifacts 2
+        run: ls -R
+
       - name: Upload executables to asset
         id: upload-release-asset
         uses: softprops/action-gh-release@v1
