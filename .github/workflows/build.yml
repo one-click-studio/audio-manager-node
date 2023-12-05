@@ -35,11 +35,12 @@ jobs:
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
+      - name: rename index.node to index-linux.node
+        run: mv ./one-click-os/crates/audio-manager-node/index.node ./one-click-os/crates/audio-manager-node/index-linux.node
       - name: Upload linux artifact
         uses: actions/upload-artifact@v3
         with:
-          name: index-linux.node
-          path: ./one-click-os/crates/audio-manager-node/index.node
+          path: ./one-click-os/crates/audio-manager-node/index-linux.node
 
   build_macos:
     name: Build MacOS Binaries
@@ -62,12 +63,12 @@ jobs:
       - name: Install npm dependencies
         working-directory: ./one-click-os/crates/audio-manager-node
         run: npm install
+      - name: rename index.node to index-macos-x64.node
+        run: mv ./one-click-os/crates/audio-manager-node/index.node ./one-click-os/crates/audio-manager-node/index-macos-x64.node
       - name: Upload macos artifact
         uses: actions/upload-artifact@v3
         with:
-          name: index-macos-x64.node
-          path: ./one-click-os/crates/audio-manager-node/index.node
-
+          path: ./one-click-os/crates/audio-manager-node/index-macos-x64.node
 
   release:
     name: Create Release
